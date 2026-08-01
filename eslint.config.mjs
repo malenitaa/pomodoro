@@ -47,7 +47,7 @@ export default [
     settings: { react: { version: "detect" } },
   },
   {
-    files: ["electron/**/*.js", "scripts/**/*.cjs"],
+    files: ["electron/**/*.js", "scripts/**/*.cjs", "tests/**/*.cjs"],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "commonjs",
