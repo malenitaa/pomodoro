@@ -135,7 +135,7 @@ function createWindow() {
 }
 
 function applyStrictCsp() {
-  const csp = [
+  const prodCsp = [
     "default-src 'self'",
     "script-src 'self'",
     "style-src 'self' 'unsafe-inline'",
@@ -144,6 +144,23 @@ function applyStrictCsp() {
     "object-src 'none'",
     "frame-src 'none'",
   ].join("; ");
+
+  // The packaged app (loaded via loadFile from dist/) always gets the
+  // strict policy above. `npm run dev` loads from Vite's dev server
+  // instead, which needs an inline bootstrap script and a WebSocket back
+  // to itself for hot-module-reload — this relaxed policy only ever
+  // takes effect against that local dev server, never in production.
+  const devCsp = [
+    "default-src 'self' http://localhost:5173",
+    "script-src 'self' 'unsafe-inline' http://localhost:5173",
+    "style-src 'self' 'unsafe-inline' http://localhost:5173",
+    "img-src 'self' data: http://localhost:5173",
+    "connect-src 'self' ws://localhost:5173 http://localhost:5173",
+    "object-src 'none'",
+    "frame-src 'none'",
+  ].join("; ");
+
+  const csp = isDev ? devCsp : prodCsp;
 
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     callback({

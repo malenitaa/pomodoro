@@ -86,11 +86,11 @@ Este proyecto trata la seguridad como requisito no negociable, no como algo opci
 
 3. **Validación estricta en el proceso main**: cada handler de IPC que recibe datos (`electron/validators.js`) valida el *shape* completo del payload — claves conocidas, tipos correctos, rangos numéricos válidos — y **rechaza (lanza error) todo el payload** si algo no matchea, en vez de sanear parcialmente o aceptar datos con forma inesperada.
 
-4. **Content-Security-Policy estricta**, aplicada en dos capas redundantes:
-   - Vía `session.defaultSession.webRequest.onHeadersReceived` en el proceso main (autoridad real).
-   - Vía `<meta http-equiv="Content-Security-Policy">` en `index.html` (defensa adicional en caso de que la carga de headers falle).
+4. **Content-Security-Policy estricta**, aplicada vía `session.defaultSession.webRequest.onHeadersReceived` en el proceso main:
 
-   Política: `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'`. `connect-src 'none'` bloquea cualquier intento de `fetch`/`XHR`/`WebSocket` — coherente con que la app no tiene ningún backend ni llamada saliente.
+   `default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'`
+
+   `connect-src 'none'` bloquea cualquier intento de `fetch`/`XHR`/`WebSocket` — coherente con que la app no tiene ningún backend ni llamada saliente. Esta política estricta es la que se aplica siempre en la app empaquetada (`npm run build`). En `npm run dev` se relaja únicamente lo indispensable para que el propio cliente de Vite (HMR) funcione contra `http://localhost:5173` — el resto de las reglas se mantiene igual, y esa relajación nunca ocurre en producción.
 
 5. **Bloqueo total de navegación externa**: `will-navigate` cancela cualquier intento de navegar fuera de la app, y `setWindowOpenHandler` deniega toda apertura de ventana/pestaña nueva (`window.open`, `target="_blank"`, etc.), tanto en la ventana principal como en cualquier `webContents` creado (`app.on('web-contents-created', ...)`).
 
