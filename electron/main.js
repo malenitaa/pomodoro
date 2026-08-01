@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const { app, BrowserWindow, session, Notification, ipcMain } = require("electron");
+const { app, BrowserWindow, session, Notification, ipcMain, Menu } = require("electron");
 
 const store = require("./store");
 const { createTimer } = require("./timer");
@@ -17,10 +17,23 @@ let mainWindow = null;
 let data = store.loadData();
 let saveTimeout = null;
 
+// Never let a filesystem error (disk full, permissions, ...) crash the
+// whole main process or bubble a raw Node error — with its absolute file
+// paths — anywhere near the renderer. Worst case, that one save is lost;
+// the app keeps running and will just try again on the next change.
+function safeSaveData(nextData) {
+  try {
+    return store.saveData(nextData);
+  } catch (err) {
+    console.error("No se pudo guardar pomodoro-data.json:", err.message);
+    return nextData;
+  }
+}
+
 function scheduleSave() {
   if (saveTimeout) clearTimeout(saveTimeout);
   saveTimeout = setTimeout(() => {
-    data = store.saveData(data);
+    data = safeSaveData(data);
     saveTimeout = null;
   }, 300);
 }
@@ -95,6 +108,18 @@ function createWindow() {
   });
 
   mainWindow.once("ready-to-show", () => mainWindow.show());
+
+  // In production, strip Electron's default menu (Reload, Force Reload,
+  // Toggle Developer Tools, ...) and refuse to open DevTools even if
+  // something tries to. There's nothing sensitive in this app's console,
+  // but there's no reason to expose internals or a debugging surface in
+  // a packaged build either. Left intact in dev for normal debugging.
+  if (!isDev) {
+    Menu.setApplicationMenu(null);
+    mainWindow.webContents.on("devtools-opened", () => {
+      mainWindow.webContents.closeDevTools();
+    });
+  }
 
   if (isDev) {
     mainWindow.loadURL("http://localhost:5173");
@@ -221,7 +246,7 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
   if (saveTimeout) {
     clearTimeout(saveTimeout);
-    data = store.saveData(data);
+    data = safeSaveData(data);
   }
   if (process.platform !== "darwin") app.quit();
 });
@@ -229,7 +254,7 @@ app.on("window-all-closed", () => {
 app.on("before-quit", () => {
   if (saveTimeout) {
     clearTimeout(saveTimeout);
-    data = store.saveData(data);
+    data = safeSaveData(data);
   }
 });
 
