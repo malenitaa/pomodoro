@@ -15,7 +15,7 @@
     "build": "npm run build:vite && electron-builder --mac",
     "pack": "npm run build:vite && electron-builder --dir",
     "lint": "eslint .",
-    "test": "node --test \"tests/*.test.cjs\""
+    "test": "node --test tests/*.test.cjs"
   },
   "dependencies": {
     "@fontsource/press-start-2p": "^5.1.0",
