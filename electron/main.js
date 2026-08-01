@@ -82,6 +82,7 @@ function createWindow() {
     resizable: true,
     alwaysOnTop: Boolean(data.settings.alwaysOnTop),
     backgroundColor: "#1a1230",
+    icon: path.join(__dirname, "..", "build", "icon.png"),
     show: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),

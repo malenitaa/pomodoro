@@ -28,6 +28,8 @@ src/                    Renderer (React + Vite)
   styles/                 Paleta de colores y estilos globales
 
 scripts/generate-chime.cjs   Generador del sonido de notificación (offline)
+scripts/generate-icon.cjs    Generador del ícono de la app (offline)
+build/icon.png                Ícono fuente (1024×1024) usado por electron-builder
 ```
 
 ## Desarrollo
@@ -47,7 +49,7 @@ npm run build
 
 Compila el renderer con Vite y empaqueta con `electron-builder` para macOS (`.dmg`, arquitecturas `arm64` y `x64`). El resultado queda en `release/`.
 
-> Falta un ícono propio: agregá `build/icon.icns` (1024×1024) para reemplazar el ícono por defecto de Electron antes de distribuir la app.
+El ícono (`build/icon.png`, 1024×1024, un tomatito pixel art sobre una placa violeta) también está generado por código — ver `scripts/generate-icon.cjs` — y `electron-builder` genera automáticamente el `.icns`/`.ico`/PNGs de todos los tamaños necesarios a partir de ese archivo. Si querés reemplazarlo por tu propio arte, alcanza con sobrescribir `build/icon.png` (mínimo 512×512, idealmente 1024×1024).
 
 ## Persistencia (sin base de datos)
 
