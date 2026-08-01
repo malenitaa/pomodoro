@@ -13,6 +13,41 @@ Aplicación de escritorio Pomodoro con estética pixel art retro-cute. 100% offl
 - Sonido de notificación generado por código (`scripts/generate-chime.cjs`) — no es una muestra de audio de terceros.
 - Todo el arte (vela, taza, iconos, barra de progreso) se dibuja por código: `<canvas>` para la vela/taza y grillas CSS para los iconos de 8×8. No hay PNGs de terceros; cualquier asset se puede reemplazar después por tus propios sprites en `src/assets/`.
 
+## Arquitectura
+
+Dos procesos separados, como en cualquier app Electron, con una frontera deliberadamente angosta entre ambos:
+
+```
+PROCESO MAIN (Node.js) — electron/main.js
+  ├─ timer.js        motor del pomodoro (state machine, timestamps reales)
+  ├─ store.js        lee/escribe pomodoro-data.json
+  └─ validators.js   valida todo lo que llega por IPC
+
+        │  eventos main -> renderer (webContents.send)
+        │    timer:state          (cada 250ms mientras corre)
+        │    timer:blockComplete  (al terminar un bloque)
+        ▼
+   electron/preload.js — contextBridge.exposeInMainWorld("pomodoro", {...})
+        ▲
+        │  comandos renderer -> main (ipcRenderer.invoke)
+        │    timer.start / pause / reset / skip
+        │    settings.get / settings.update
+        │    window.minimize / close / setAlwaysOnTop
+        │
+PROCESO RENDERER (Chromium) — React, src/
+  ├─ App.jsx                 arma la pantalla a partir del estado que llega
+  ├─ hooks/useTimer.js        se suscribe a timer:state / timer:blockComplete
+  ├─ hooks/useSettings.js     pide/actualiza settings vía IPC
+  └─ components/Candle,TeaCup,ProgressBar,...   dibujan ese estado (canvas/CSS)
+```
+
+Puntos clave de esta división:
+
+- **La única verdad sobre el tiempo restante vive en el proceso main.** `timer.js` calcula `remaining = duración - (Date.now() - inicio)` en cada tick y lo empuja al renderer. El renderer nunca cuenta el tiempo por su cuenta — solo pinta el número que le llega. Así, si la ventana está minimizada o la máquina durmió, no hay nada que "se desincronice": el próximo tick recalcula desde el timestamp real.
+- **El renderer no puede hablarle a nada del proceso main salvo por las funciones que `preload.js` decide exponer** (ver "Decisiones de seguridad" más abajo). No hay acceso a Node, ni a `ipcRenderer` crudo, ni una forma de invocar un canal que no esté en esa lista.
+- **La persistencia es un detalle interno de main.** El renderer nunca toca el filesystem — pide `settings:get`/`stats:get` y listo. `store.js` es el único módulo que lee/escribe `pomodoro-data.json`.
+- **`App.jsx` es básicamente una función de `estado del timer → pixeles`.** No guarda su propio timer, no persiste nada directamente: todo el estado real vive en main y llega vía los hooks `useTimer`/`useSettings` suscriptos a los eventos de `preload.js`.
+
 ## Estructura del proyecto
 
 ```
@@ -29,10 +64,23 @@ src/                    Renderer (React + Vite)
   assets/sounds/          chime.wav (generado localmente)
   styles/                 Paleta de colores y estilos globales
 
+tests/                 Suite de tests (node --test, sin dependencias extra)
+  store.test.cjs         Escritura atómica, recuperación de corrupción, saneo
+  validators.test.cjs    Cada caso de aceptación/rechazo de IPC, incluida inyección de __proto__
+  timer.test.cjs         Ciclo de fases, pausa/resume, semántica de skip
+
 scripts/generate-chime.cjs   Generador del sonido de notificación (offline)
 scripts/generate-icon.cjs    Generador del ícono de la app (offline)
 build/icon.png                Ícono fuente (1024×1024) usado por electron-builder
 ```
+
+## Tests
+
+```bash
+npm test
+```
+
+Corre con el test runner nativo de Node (`node --test`, sin Jest/Mocha/dependencias extra) contra `electron/store.js`, `electron/validators.js` y `electron/timer.js` — la lógica que importa que sea correcta y no dependa de tener una ventana abierta. Cubre, entre otras cosas: que la escritura atómica nunca deje un `.tmp` huérfano, que un archivo de datos corrupto recupere a defaults sin tirar excepción, que el saneo descarte claves desconocidas y tipos inválidos, que la validación de IPC rechace un intento de contaminar `Object.prototype` vía `__proto__`, y que pausar/resumir el timer preserve el tiempo restante exacto.
 
 ## Cómo correrlo/compilarlo vos mismo, paso a paso
 
@@ -49,7 +97,11 @@ Cualquiera con el código fuente puede levantarlo sin depender de nada externo (
    npm run dev
    ```
    Esto levanta Vite en `http://localhost:5173` y abre Electron apuntando a esa URL. Solo en este modo la app habilita DevTools y relaja mínimamente la CSP para que el propio HMR de Vite funcione (ver sección de seguridad) — la app empaquetada nunca hace esto.
-5. **Para generar la app instalable** (macOS):
+5. **(Opcional) correr los tests**:
+   ```bash
+   npm test
+   ```
+6. **Para generar la app instalable** (macOS):
    ```bash
    npm run build
    ```
@@ -124,7 +176,7 @@ Mapeo honesto contra OWASP Top 10 (2021), interpretado para una app de escritori
 |---|---|---|
 | A01 Broken Access Control | N/A | No hay usuarios, cuentas ni recursos multiusuario que proteger. |
 | A02 Cryptographic Failures | N/A | No se maneja ni transmite información sensible (solo duración de timers y contadores). |
-| A03 Injection | ✅ | Sin `eval`, sin shell, sin SQL. IPC valida tipos/rangos/claves con whitelist estricta (probado incluso con intento de `__proto__`). |
+| A03 Injection | ✅ | Sin `eval`, sin shell, sin SQL. IPC valida tipos/rangos/claves con whitelist estricta, incluido rechazo de un intento de `__proto__` (ver `tests/validators.test.cjs`). |
 | A04 Insecure Design | ✅ | Superficie de ataque mínima por diseño: sin red, sin backend, IPC explícito y acotado. |
 | A05 Security Misconfiguration | ✅ | `contextIsolation`/`sandbox`/`nodeIntegration:false`, CSP estricta, sin menú/DevTools en producción. |
 | A06 Vulnerable Components | ⚠️ | Ver "Auditoría de dependencias" arriba — vulnerabilidades reales, pero acotadas a herramientas de build, no al código shipeado. |
