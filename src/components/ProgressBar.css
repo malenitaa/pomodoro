@@ -1,0 +1,40 @@
+.progress-bar {
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-panel);
+  padding: 3px;
+  width: 100%;
+}
+
+.progress-track {
+  position: relative;
+  display: flex;
+  gap: 1px;
+  height: 10px;
+}
+
+.progress-seg {
+  flex: 1;
+  background: var(--color-bg-deep);
+}
+
+.progress-bar--focus .progress-seg.filled {
+  background: var(--color-violet);
+}
+
+.progress-bar--shortBreak .progress-seg.filled {
+  background: var(--color-pink);
+}
+
+.progress-bar--longBreak .progress-seg.filled {
+  background: var(--color-success);
+}
+
+.progress-marker {
+  position: absolute;
+  top: -3px;
+  width: 4px;
+  height: 16px;
+  background: var(--color-lavender-soft);
+  box-shadow: 0 0 0 1px var(--color-bg-deep);
+  transition: left 0.2s steps(6);
+}

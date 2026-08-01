@@ -1,0 +1,37 @@
+/* Paleta pixel nocturna: violeta / lavanda / rosa suave */
+:root {
+  --color-bg-deep: #1a1230;
+  --color-bg: #241a3d;
+  --color-bg-panel: #2e2151;
+  --color-bg-panel-raised: #392a63;
+
+  --color-border: #6e56b8;
+  --color-border-light: #9b86dd;
+
+  --color-lavender: #b9a3ff;
+  --color-lavender-soft: #d9cdff;
+  --color-violet: #7c5cff;
+  --color-pink: #ff9fd6;
+  --color-pink-soft: #ffd3ee;
+
+  --color-text: #f1ecff;
+  --color-text-dim: #b3a4e0;
+  --color-text-faded: #7c6fa8;
+
+  --color-flame: #ffd873;
+  --color-flame-core: #fff3c4;
+  --color-wax: #fbe8ff;
+  --color-wax-shadow: #d9b8e8;
+
+  --color-steam: #e8e0ff;
+  --color-cup: #7c5cff;
+  --color-cup-shadow: #5a3fc0;
+
+  --color-danger: #ff8fa3;
+  --color-success: #a6f2c1;
+
+  --font-pixel: "Press Start 2P", "Courier New", monospace;
+
+  --titlebar-h: 28px;
+  --radius-px: 0px;
+}

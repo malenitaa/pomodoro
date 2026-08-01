@@ -1,0 +1,43 @@
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-panel);
+  color: var(--color-lavender-soft);
+  padding: 8px;
+}
+
+.control-btn:hover {
+  background: var(--color-bg-panel-raised);
+  border-color: var(--color-border-light);
+}
+
+.control-btn:active {
+  background: var(--color-violet);
+}
+
+.control-btn--primary {
+  width: 44px;
+  height: 44px;
+  background: var(--color-violet);
+  color: var(--color-text);
+  border-color: var(--color-lavender);
+}
+
+.control-btn--primary:hover {
+  background: var(--color-lavender);
+  color: var(--color-bg-deep);
+}
+
+.control-btn--ghost {
+  width: 32px;
+  height: 32px;
+}
