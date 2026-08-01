@@ -1,0 +1,33 @@
+.pomo-counter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 8px;
+  color: var(--color-text-dim);
+}
+
+.pomo-counter-label {
+  color: var(--color-lavender);
+}
+
+.pomo-counter-dots {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.pomo-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-pink);
+  box-shadow: 0 0 0 1px var(--color-bg-deep);
+}
+
+.pomo-counter-extra {
+  color: var(--color-pink-soft);
+}
+
+.pomo-counter-number {
+  margin-left: auto;
+  color: var(--color-text);
+}

@@ -1,0 +1,11 @@
+.teacup-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 144px;
+}
+
+.teacup-canvas {
+  image-rendering: pixelated;
+}

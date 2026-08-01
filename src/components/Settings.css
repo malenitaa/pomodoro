@@ -1,0 +1,75 @@
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-bg);
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 2px solid var(--color-border);
+  font-size: 9px;
+  color: var(--color-lavender-soft);
+}
+
+.settings-back {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-panel);
+  border: 2px solid var(--color-border);
+  color: var(--color-lavender-soft);
+}
+
+.settings-back:hover {
+  background: var(--color-bg-panel-raised);
+}
+
+.settings-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 8px;
+  color: var(--color-text-dim);
+}
+
+.settings-field input[type="number"] {
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  background: var(--color-bg-panel);
+  border: 2px solid var(--color-border);
+  color: var(--color-text);
+  padding: 6px;
+  width: 100%;
+}
+
+.settings-field input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-violet);
+}
+
+.settings-field--row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.settings-field input[type="checkbox"] {
+  accent-color: var(--color-violet);
+  width: 14px;
+  height: 14px;
+}

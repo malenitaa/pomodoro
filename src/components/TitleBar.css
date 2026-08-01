@@ -1,0 +1,62 @@
+.titlebar {
+  height: var(--titlebar-h);
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  background: var(--color-bg-panel);
+  border-bottom: 2px solid var(--color-border);
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+.titlebar-drag {
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.titlebar-title {
+  font-size: 8px;
+  color: var(--color-lavender-soft);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.titlebar-buttons {
+  display: flex;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-btn {
+  width: 28px;
+  height: var(--titlebar-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-left: 2px solid var(--color-border);
+  color: var(--color-lavender-soft);
+  padding: 0;
+}
+
+.titlebar-btn:hover {
+  background: var(--color-bg-panel-raised);
+  color: var(--color-pink-soft);
+}
+
+.titlebar-btn:active {
+  background: var(--color-violet);
+}
+
+.titlebar-btn.is-active {
+  background: var(--color-violet);
+  color: var(--color-text);
+}
+
+.titlebar-btn--close:hover {
+  background: var(--color-danger);
+  color: var(--color-bg-deep);
+}
