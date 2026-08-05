@@ -6,3 +6,6 @@ release/
 npm-debug.log*
 .env
 .vite/
+
+# Archivos privados locales (nunca se suben al repo)
+README.privado.md
