@@ -82,8 +82,8 @@ npm run build  # genera el .dmg en release/
 
 Si te resultó útil y querés bancar el proyecto:
 
-- 🇦🇷 [Cafecito](https://cafecito.app/rezamalena) (pesos argentinos)
-- 🌎 [Ko-fi](https://ko-fi.com/malenitaa) (dólares)
+- [Cafecito](https://cafecito.app/rezamalena)
+- [Ko-fi](https://ko-fi.com/malenitaa)
 
 ## Licencia
 
