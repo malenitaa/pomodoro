@@ -78,6 +78,13 @@ npm test       # corre la suite de tests
 npm run build  # genera el .dmg en release/
 ```
 
+## ¿Te sirvió?
+
+Si te resultó útil y querés bancar el proyecto:
+
+- 🇦🇷 [Cafecito](https://cafecito.app/rezamalena) (pesos argentinos)
+- 🌎 [Ko-fi](https://ko-fi.com/malenitaa) (dólares)
+
 ## Licencia
 
 MIT — ver [LICENSE](LICENSE).
