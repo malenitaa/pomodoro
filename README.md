@@ -1,6 +1,15 @@
 # Pixel Pomodoro
 
-Aplicación de escritorio Pomodoro con estética pixel art retro-cute. 100% offline, sin cuentas, sin backend, sin telemetría.
+[![Descargar última versión](https://img.shields.io/github/v/release/malenitaa/pomodoro?label=descargar&color=6b46c1)](https://github.com/malenitaa/pomodoro/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![macOS](https://img.shields.io/badge/platform-macOS-lightgrey)](#)
+
+**Pixel Pomodoro** es una app de escritorio gratuita y de código abierto para
+**macOS** que implementa la **técnica Pomodoro** (temporizador de foco y
+descansos) con una estética **pixel art** retro-cute: una velita que se va
+derritiendo mientras trabajás y una taza de té humeante en los descansos.
+Es un **timer de productividad 100% offline** — sin cuentas, sin backend,
+sin telemetría, sin anuncios — construida con Electron y React.
 
 > Este README es la documentación **técnica** (para quien va a tocar el código). Si solo querés descargarla y usarla, mirá **[USO.md](./USO.md)**.
 

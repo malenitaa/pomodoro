@@ -1,32 +1,21 @@
 # Pixel Pomodoro — guía de uso
 
-Una app de escritorio para la técnica Pomodoro, con vela y taza de té pixel art. Corre en tu computadora, no necesita internet, no pide cuentas ni datos personales, y no manda absolutamente nada a ningún servidor — todo lo que guarda queda en tu propia máquina.
+**Pixel Pomodoro** es un temporizador Pomodoro gratuito para Mac, con estética
+pixel art (vela y taza de té). Es una app de escritorio nativa: corre en tu
+computadora, no necesita internet, no pide cuentas ni datos personales, y no
+manda absolutamente nada a ningún servidor — todo lo que guarda queda en tu
+propia máquina.
 
 ## ¿Qué necesito para instalarla?
 
-Por ahora esta app se instala compilándola vos mismo desde el código fuente (no hay todavía un instalador listo para descargar y hacer doble clic). Necesitás:
-
 - Una computadora con **macOS**.
-- Tener instalado **[Node.js](https://nodejs.org/)** (bajalo de esa página, elegí la versión "LTS", es gratis).
 
-Nada más. No hace falta crear ninguna cuenta en ningún lado.
+Nada más. No hace falta crear ninguna cuenta, ni instalar Node ni nada técnico.
 
 ## Instalación, paso a paso
 
-1. Descargá el código del proyecto (botón **Code → Download ZIP** en la página del repositorio, o `git clone` si sabés usar Git) y descomprimilo en una carpeta.
-2. Abrí la app **Terminal** (está en Aplicaciones → Utilidades) y navegá hasta esa carpeta. Por ejemplo:
-   ```
-   cd Descargas/pomodoro
-   ```
-3. Instalá lo necesario (solo la primera vez):
-   ```
-   npm install
-   ```
-4. Generá la app instalable:
-   ```
-   npm run build
-   ```
-5. Cuando termina, la app queda en la carpeta `release/mac/`. Buscá **"Pixel Pomodoro.app"** y arrastrala a tu carpeta de Aplicaciones si querés tenerla ahí de forma permanente.
+1. Andá a [Releases](https://github.com/malenitaa/pomodoro/releases) y descargá el `.dmg` correspondiente a tu Mac (`arm64` si es una Mac con chip Apple M1/M2/M3/M4, o el otro `.dmg` si es una Mac más vieja con procesador Intel — si no estás segura/o, probá primero el `arm64`).
+2. Abrí el `.dmg` descargado y arrastrá **"Pixel Pomodoro"** a tu carpeta de Aplicaciones.
 
 ## La primera vez que la abrís
 
@@ -70,4 +59,8 @@ Sí, y no tiene compras dentro de la app, publicidad, ni ningún costo oculto.
 El contador de pomodoros de hoy y tu configuración quedan guardados. El bloque que estabas corriendo en el momento de cerrar sí se reinicia la próxima vez que abras la app.
 
 **¿Qué hago si algo no funciona como espero?**
-Cerrá la app y abrila de nuevo. Si el problema persiste, revisá si hay una versión más nueva del proyecto disponible.
+Cerrá la app y abrila de nuevo. Si el problema persiste, revisá si hay una versión más nueva en [Releases](https://github.com/malenitaa/pomodoro/releases).
+
+## ¿Sos desarrolladora/or?
+
+Si preferís compilar la app vos mismo desde el código fuente en vez de usar el `.dmg`, mirá el [README.md](./README.md) técnico.
