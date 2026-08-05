@@ -1,90 +1,90 @@
 # Pixel Pomodoro
 
-[![Descargar última versión](https://img.shields.io/github/v/release/malenitaa/pomodoro?label=descargar&color=6b46c1)](https://github.com/malenitaa/pomodoro/releases/latest)
+[![Download latest release](https://img.shields.io/github/v/release/malenitaa/pomodoro?label=download&color=6b46c1)](https://github.com/malenitaa/pomodoro/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![macOS](https://img.shields.io/badge/platform-macOS-lightgrey)](#)
 
-**Pixel Pomodoro** es un temporizador Pomodoro gratuito para Mac, con
-estética pixel art (vela y taza de té). Es una app de escritorio nativa
-para **macOS**: corre en tu computadora, no necesita internet, no pide
-cuentas ni datos personales, y no manda absolutamente nada a ningún
-servidor — todo lo que guarda queda en tu propia máquina.
+**Pixel Pomodoro** is a free Pomodoro timer for Mac with a pixel-art
+look (a melting candle and a steaming teacup). It's a native **macOS**
+desktop app: it runs on your computer, doesn't need the internet,
+doesn't ask for accounts or personal data, and sends absolutely nothing
+to any server — everything it stores stays on your own machine.
 
-## ¿Qué necesito para instalarla?
+## What do I need to install it?
 
-- Una computadora con **macOS**.
+- A **macOS** computer.
 
-Nada más. No hace falta crear ninguna cuenta, ni instalar Node ni nada técnico.
+That's it. No account needed, no Node install, nothing technical.
 
-## Instalación, paso a paso
+## Installation, step by step
 
-1. Andá a [Releases](https://github.com/malenitaa/pomodoro/releases) y descargá el `.dmg` correspondiente a tu Mac (`arm64` si es una Mac con chip Apple M1/M2/M3/M4, o el otro `.dmg` si es una Mac más vieja con procesador Intel — si no estás segura/o, probá primero el `arm64`).
-2. Abrí el `.dmg` descargado y arrastrá **"Pixel Pomodoro"** a tu carpeta de Aplicaciones.
+1. Go to [Releases](https://github.com/malenitaa/pomodoro/releases) and download the `.dmg` for your Mac (`arm64` if it's a Mac with an Apple M1/M2/M3/M4 chip, or the other `.dmg` if it's an older Intel Mac — if you're not sure, try `arm64` first).
+2. Open the downloaded `.dmg` and drag **"Pixel Pomodoro"** to your Applications folder.
 
-## La primera vez que la abrís
+## The first time you open it
 
-macOS va a mostrar un aviso tipo *"no se puede verificar el desarrollador"* o *"Apple no pudo verificar que esta app esté libre de malware"*. Esto **no significa que algo esté mal** — pasa con cualquier aplicación que no se distribuye a través de la App Store o sin pagarle a Apple por una firma digital, y este proyecto es gratuito y de código abierto, así que no tiene esa firma.
+macOS will show a warning like *"cannot verify the developer"* or *"Apple could not verify this app is free of malware."* This **doesn't mean anything is wrong** — it happens with any app not distributed through the App Store or without paying Apple for a developer signature, and this project is free and open source, so it doesn't have that signature.
 
-Para abrirla la primera vez:
+To open it the first time:
 
-1. Hacé **clic derecho** (o Control + clic) sobre "Pixel Pomodoro.app".
-2. Elegí **Abrir**.
-3. Te va a aparecer el mismo aviso, pero esta vez con un botón **Abrir**. Tocalo.
+1. **Right-click** (or Control + click) on "Pixel Pomodoro.app".
+2. Choose **Open**.
+3. You'll see the same warning again, but this time with an **Open** button. Click it.
 
-Después de esa primera vez, la app abre normal con doble clic, como cualquier otra.
+After that first time, the app opens normally with a double-click, like any other.
 
-## Cómo se usa
+## How to use it
 
-- **Iniciar / pausar**: el botón grande del medio (▶ / ⏸).
-- **Reiniciar bloque**: el botón de la izquierda (↺) — vuelve el bloque actual a su duración completa.
-- **Saltear**: el botón de la derecha (⏭) — pasa al siguiente bloque sin esperar a que termine.
-- **Siempre visible arriba**: el ícono de chinche (📌) en la barra superior — fija la ventana por encima de las demás.
-- **Configuración**: el ícono de engranaje (⚙) — ahí podés cambiar cuánto dura el foco, los descansos, cada cuántos pomodoros hay un descanso largo, y el volumen del sonido (o silenciarlo).
+- **Start / pause**: the big button in the middle (▶ / ⏸).
+- **Restart block**: the left button (↺) — resets the current block to its full duration.
+- **Skip**: the right button (⏭) — moves to the next block without waiting for it to finish.
+- **Always on top**: the pin icon (📌) at the top — keeps the window above others.
+- **Settings**: the gear icon (⚙) — change how long focus/break blocks last, how many pomodoros before a long break, and the sound volume (or mute it).
 
-Mientras estás en un bloque de foco vas a ver una **velita** que se va derritiendo a medida que pasa el tiempo. Cuando el bloque termina, escuchás un sonido suave y te llega una notificación del sistema — y durante los descansos, la vela se apaga y aparece una **taza humeante** en su lugar.
+While you're in a focus block, you'll see a **little candle** melt down as time passes. When the block ends, you'll hear a soft sound and get a system notification — and during breaks, the candle goes out and a **steaming cup** appears in its place.
 
-Arriba a la izquierda tenés el contador de **pomodoros completados hoy**.
+Top left shows the counter for **pomodoros completed today**.
 
-## Preguntas frecuentes
+## FAQ
 
-**¿Necesito internet para usarla?**
-No. Funciona 100% sin conexión, incluso podés desactivar el wifi y no cambia nada.
+**Do I need internet to use it?**
+No. It works 100% offline — you can even turn off wifi and nothing changes.
 
-**¿Manda mis datos a algún lado?**
-No. La app ni siquiera puede hacerlo aunque quisiera: tiene bloqueada a nivel técnico cualquier conexión de red saliente. Todo lo que guarda (tus tiempos configurados y cuántos pomodoros hiciste) vive en un único archivo en tu computadora, en la carpeta de datos de aplicaciones de tu usuario — nadie más lo puede ver ni acceder a él de forma remota.
+**Does it send my data anywhere?**
+No. The app couldn't even if it wanted to: any outgoing network connection is blocked at a technical level. Everything it stores (your configured durations and how many pomodoros you did) lives in a single file on your computer, in your user's application data folder — no one else can see it or access it remotely.
 
-**¿Necesito crear una cuenta?**
-No, no hay cuentas, ni login, ni nada parecido.
+**Do I need to create an account?**
+No, there are no accounts, no login, nothing like that.
 
-**¿Es gratis?**
-Sí, y no tiene compras dentro de la app, publicidad, ni ningún costo oculto.
+**Is it free?**
+Yes, and it has no in-app purchases, ads, or hidden costs.
 
-**Cerré la app a la mitad de un bloque, ¿pierdo mi progreso?**
-El contador de pomodoros de hoy y tu configuración quedan guardados. El bloque que estabas corriendo en el momento de cerrar sí se reinicia la próxima vez que abras la app.
+**I closed the app halfway through a block — do I lose my progress?**
+Today's pomodoro counter and your settings are saved. The block that was running when you closed it does reset the next time you open the app.
 
-**¿Qué hago si algo no funciona como espero?**
-Cerrá la app y abrila de nuevo. Si el problema persiste, revisá si hay una versión más nueva en [Releases](https://github.com/malenitaa/pomodoro/releases).
+**What do I do if something isn't working as expected?**
+Close the app and reopen it. If the problem persists, check if there's a newer version in [Releases](https://github.com/malenitaa/pomodoro/releases).
 
-## Para desarrolladores
+## For developers
 
-Requisitos: macOS, [Node.js](https://nodejs.org/) 18+.
+Requirements: macOS, [Node.js](https://nodejs.org/) 18+.
 
 ```bash
 git clone https://github.com/malenitaa/pomodoro.git
 cd pomodoro
 npm install
-npm run dev    # modo desarrollo, con recarga en caliente
-npm test       # corre la suite de tests
-npm run build  # genera el .dmg en release/
+npm run dev    # dev mode, with hot reload
+npm test       # runs the test suite
+npm run build  # builds the .dmg into release/
 ```
 
-## ¿Te sirvió?
+## Enjoyed it?
 
-Si te resultó útil y querés bancar el proyecto:
+If this was useful and you'd like to support the project:
 
 - [Cafecito](https://cafecito.app/rezamalena)
 - [Ko-fi](https://ko-fi.com/malenitaa)
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
