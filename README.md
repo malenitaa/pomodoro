@@ -10,6 +10,11 @@ desktop app: it runs on your computer, doesn't need the internet,
 doesn't ask for accounts or personal data, and sends absolutely nothing
 to any server — everything it stores stays on your own machine.
 
+<p align="center">
+  <img src="docs/screenshot-focus.png" alt="Pixel Pomodoro during a focus block: a pixel-art candle melting as time passes" width="320" />
+  <img src="docs/screenshot-break.png" alt="Pixel Pomodoro during a break: a steaming pixel-art teacup" width="320" />
+</p>
+
 ## What do I need to install it?
 
 - A **macOS** computer.
