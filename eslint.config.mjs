@@ -5,6 +5,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 const browserGlobals = {
   window: "readonly",
   document: "readonly",
+  navigator: "readonly",
   console: "readonly",
   Audio: "readonly",
   setInterval: "readonly",
@@ -27,6 +28,8 @@ const nodeGlobals = {
 };
 
 export default [
+  // Build outputs; without this, linting after a build floods on bundled code.
+  { ignores: ["dist/", "release/"] },
   js.configs.recommended,
   {
     files: ["src/**/*.{js,jsx}"],
