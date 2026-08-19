@@ -49,7 +49,7 @@ After that first time, the app opens normally with a double-click, like any othe
 
 While you're in a focus block, you'll see a **little candle** melt down as time passes. When the block ends, you'll hear a soft sound and get a system notification — and during breaks, the candle goes out and a **steaming cup** appears in its place.
 
-Top left shows the counter for **pomodoros completed today**.
+Just above the buttons, on the left, you'll see the counter for **pomodoros completed today**.
 
 ## FAQ
 
@@ -58,6 +58,9 @@ No. It works 100% offline — you can even turn off wifi and nothing changes.
 
 **Does it send my data anywhere?**
 No. The app couldn't even if it wanted to: any outgoing network connection is blocked at a technical level. Everything it stores (your configured durations and how many pomodoros you did) lives in a single file on your computer, in your user's application data folder — no one else can see it or access it remotely. The details, verifiable in the code, are in [SECURITY.md](SECURITY.md).
+
+**Is the interface in English?**
+Not yet — the app's interface is currently Spanish-only. It's simple enough (a timer, three buttons, and a settings panel) that it's usable without knowing Spanish, but fair warning.
 
 **Do I need to create an account?**
 No, there are no accounts, no login, nothing like that.
