@@ -94,6 +94,15 @@ Today's pomodoro counter and your settings are saved. The block that was running
 **What do I do if something isn't working as expected?**
 Close the app and reopen it. If the problem persists, check if there's a newer version in [Releases](https://github.com/malenitaa/pomodoro/releases).
 
+## Uninstall
+
+- **Mac:** drag **Pixel Pomodoro** from Applications to the Trash. Its data
+  (settings + daily counters) is a single folder — delete
+  `~/Library/Application Support/Pixel Pomodoro` too if you want zero trace
+  left.
+- **Windows:** uninstall it from **Settings → Apps**. To also delete the
+  data, remove the `Pixel Pomodoro` folder inside `%APPDATA%`.
+
 ## Privacy
 
 - **No network, ever.** There is no network code in the app, and the
