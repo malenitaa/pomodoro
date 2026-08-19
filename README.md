@@ -3,6 +3,7 @@
 [![Download latest release](https://img.shields.io/github/v/release/malenitaa/pomodoro?label=download&color=6b46c1)](https://github.com/malenitaa/pomodoro/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![macOS](https://img.shields.io/badge/platform-macOS-lightgrey)](#)
+[![Network: none](https://img.shields.io/badge/network-none-brightgreen)](./SECURITY.md)
 
 **Pixel Pomodoro** is a free Pomodoro timer for Mac with a pixel-art
 look (a melting candle and a steaming teacup). It's a native **macOS**
@@ -56,7 +57,7 @@ Top left shows the counter for **pomodoros completed today**.
 No. It works 100% offline — you can even turn off wifi and nothing changes.
 
 **Does it send my data anywhere?**
-No. The app couldn't even if it wanted to: any outgoing network connection is blocked at a technical level. Everything it stores (your configured durations and how many pomodoros you did) lives in a single file on your computer, in your user's application data folder — no one else can see it or access it remotely.
+No. The app couldn't even if it wanted to: any outgoing network connection is blocked at a technical level. Everything it stores (your configured durations and how many pomodoros you did) lives in a single file on your computer, in your user's application data folder — no one else can see it or access it remotely. The details, verifiable in the code, are in [SECURITY.md](SECURITY.md).
 
 **Do I need to create an account?**
 No, there are no accounts, no login, nothing like that.
@@ -69,6 +70,18 @@ Today's pomodoro counter and your settings are saved. The block that was running
 
 **What do I do if something isn't working as expected?**
 Close the app and reopen it. If the problem persists, check if there's a newer version in [Releases](https://github.com/malenitaa/pomodoro/releases).
+
+## Privacy
+
+- **No network, ever.** There is no network code in the app, and the
+  production build blocks outgoing connections at the browser-engine level
+  on top of that.
+- **One local file.** Everything it remembers (settings + daily pomodoro
+  counts, kept for 30 days) lives in a single JSON file in your user's
+  application data folder.
+- **No accounts, no telemetry, no auto-update phoning home.** Updates are
+  manual, from the Releases page.
+- Full threat model, verifiable against the code: [SECURITY.md](SECURITY.md).
 
 ## For developers
 
