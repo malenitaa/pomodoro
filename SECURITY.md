@@ -8,7 +8,7 @@ policy template.
 
 | Path | Access | Written by |
 |------|--------|-----------|
-| `~/Library/Application Support/Pixel Pomodoro/pomodoro-data.json` | read + write | The app's main process only |
+| `~/Library/Application Support/Pixel Pomodoro/pomodoro-data.json` (macOS) or `%APPDATA%\Pixel Pomodoro\pomodoro-data.json` (Windows) | read + write | The app's main process only |
 | Standard Chromium/Electron runtime files in that same folder (caches, GPU state, etc.) | read + write | The Electron framework itself, not app code |
 
 That is the complete list. `pomodoro-data.json` contains your configured
@@ -69,7 +69,11 @@ This app accepts almost no input, and everything it does accept is validated:
 
 - The **Intel (x64)** `.dmg` is produced by the same CI as the Apple Silicon
   one, but the app is developed and manually tested on Apple Silicon.
-- Only **macOS** is supported. The code has no Windows/Linux ports.
+- The **Windows** installer is newer than the macOS one and gets less manual
+  testing (the app is developed on a Mac). Same code, same no-network
+  guarantees — but if something platform-specific breaks, it's more likely
+  there.
+- There is no **Linux** build.
 
 ## Reporting
 
