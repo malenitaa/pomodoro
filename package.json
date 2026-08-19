@@ -1,8 +1,8 @@
 {
   "name": "pixel-pomodoro",
   "productName": "Pixel Pomodoro",
-  "version": "1.0.0",
-  "description": "Aplicación de escritorio Pomodoro con estética pixel art retro-cute, 100% offline.",
+  "version": "1.1.0",
+  "description": "Pomodoro desktop app with a retro-cute pixel art look, 100% offline.",
   "author": "malenitaa",
   "license": "MIT",
   "private": true,
@@ -13,6 +13,7 @@
     "dev:electron": "wait-on tcp:5173 && cross-env NODE_ENV=development electron .",
     "build:vite": "vite build",
     "build": "npm run build:vite && electron-builder --mac --publish never",
+    "build:win": "npm run build:vite && electron-builder --win --publish never",
     "pack": "npm run build:vite && electron-builder --dir",
     "lint": "eslint .",
     "test": "node --test tests/*.test.cjs"
@@ -61,6 +62,20 @@
       ],
       "hardenedRuntime": true,
       "gatekeeperAssess": false
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
     },
     "asar": true
   }

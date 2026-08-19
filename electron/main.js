@@ -10,6 +10,12 @@ const { resolveLanguage, notificationStrings } = require("./i18n");
 
 const isDev = process.env.NODE_ENV === "development";
 
+// Windows groups notifications by AppUserModelID; without this they show as
+// coming from "electron.app.Electron" (or not at all in a packaged build).
+if (process.platform === "win32") {
+  app.setAppUserModelId("com.malenitaa.pixelpomodoro");
+}
+
 // Electron flags that reduce attack surface / disable features this app
 // never needs (no GPU-accelerated remote content, no experimental APIs).
 app.commandLine.appendSwitch("disable-features", "OutOfBlinkCors");
