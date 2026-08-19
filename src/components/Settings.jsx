@@ -30,40 +30,42 @@ function NumberField({ label, value, min, max, onCommit }) {
   );
 }
 
-export default function Settings({ settings, onUpdate, onClose }) {
+const LANGUAGE_OPTIONS = ["auto", "en", "es"];
+
+export default function Settings({ t, settings, onUpdate, onClose }) {
   return (
     <div className="settings-panel">
       <div className="settings-header">
-        <button type="button" className="settings-back" onClick={onClose} title="Volver">
+        <button type="button" className="settings-back" onClick={onClose} title={t.back}>
           <PixelIcon matrix={ICONS.back} size={2} />
         </button>
-        <span>CONFIGURACIÓN</span>
+        <span>{t.settingsTitle}</span>
       </div>
 
       <div className="settings-body">
         <NumberField
-          label="Foco (min)"
+          label={t.focusMin}
           value={settings.focusMin}
           min={1}
           max={180}
           onCommit={(v) => onUpdate({ focusMin: v })}
         />
         <NumberField
-          label="Descanso corto (min)"
+          label={t.shortBreakMin}
           value={settings.shortBreakMin}
           min={1}
           max={60}
           onCommit={(v) => onUpdate({ shortBreakMin: v })}
         />
         <NumberField
-          label="Descanso largo (min)"
+          label={t.longBreakMin}
           value={settings.longBreakMin}
           min={1}
           max={120}
           onCommit={(v) => onUpdate({ longBreakMin: v })}
         />
         <NumberField
-          label="Pomodoros antes del descanso largo"
+          label={t.pomodorosBeforeLongBreak}
           value={settings.pomodorosBeforeLongBreak}
           min={1}
           max={12}
@@ -71,7 +73,7 @@ export default function Settings({ settings, onUpdate, onClose }) {
         />
 
         <label className="settings-field settings-field--row">
-          <span>Silenciar</span>
+          <span>{t.mute}</span>
           <input
             type="checkbox"
             checked={settings.muted}
@@ -80,7 +82,7 @@ export default function Settings({ settings, onUpdate, onClose }) {
         </label>
 
         <label className="settings-field">
-          <span>Volumen</span>
+          <span>{t.volume}</span>
           <input
             type="range"
             min={0}
@@ -91,6 +93,23 @@ export default function Settings({ settings, onUpdate, onClose }) {
             onChange={(e) => onUpdate({ volume: Number(e.target.value) })}
           />
         </label>
+
+        <div className="settings-field">
+          <span>{t.language}</span>
+          <div className="settings-lang-options" role="group" aria-label={t.language}>
+            {LANGUAGE_OPTIONS.map((option) => (
+              <button
+                key={option}
+                type="button"
+                className={`settings-lang-btn ${settings.language === option ? "is-active" : ""}`}
+                aria-pressed={settings.language === option}
+                onClick={() => onUpdate({ language: option })}
+              >
+                {option === "auto" ? t.languageAuto : option.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -73,3 +73,28 @@
   width: 14px;
   height: 14px;
 }
+
+.settings-lang-options {
+  display: flex;
+  gap: 6px;
+}
+
+.settings-lang-btn {
+  flex: 1;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  background: var(--color-bg-panel);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-dim);
+  padding: 6px 0;
+}
+
+.settings-lang-btn:hover {
+  background: var(--color-bg-panel-raised);
+}
+
+.settings-lang-btn.is-active {
+  background: var(--color-violet);
+  color: var(--color-text);
+  border-color: var(--color-violet);
+}

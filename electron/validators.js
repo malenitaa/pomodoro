@@ -13,6 +13,7 @@ const SETTINGS_FIELDS = {
   volume: { type: "number", min: 0, max: 1 },
   muted: { type: "boolean" },
   alwaysOnTop: { type: "boolean" },
+  language: { type: "enum", values: ["auto", "en", "es"] },
 };
 
 function isPlainObject(value) {
@@ -20,6 +21,12 @@ function isPlainObject(value) {
 }
 
 function checkField(name, value, rule) {
+  if (rule.type === "enum") {
+    if (!rule.values.includes(value)) {
+      throw new Error(`Invalid settings payload: "${name}" must be one of ${rule.values.join(", ")}`);
+    }
+    return;
+  }
   if (rule.type === "boolean") {
     if (typeof value !== "boolean") {
       throw new Error(`Invalid settings payload: "${name}" must be a boolean`);

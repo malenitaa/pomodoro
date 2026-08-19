@@ -6,6 +6,7 @@ const { app, BrowserWindow, session, Notification, ipcMain, Menu } = require("el
 const store = require("./store");
 const { createTimer } = require("./timer");
 const { validateSettingsPatch, validateBoolean } = require("./validators");
+const { resolveLanguage, notificationStrings } = require("./i18n");
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -70,13 +71,10 @@ const timer = createTimer({
     broadcast("timer:blockComplete", { finishedPhase, nextPhase, pomodoroCount });
 
     if (Notification.isSupported()) {
-      const title = finishedPhase === "focus" ? "¡Bloque de foco terminado!" : "¡Descanso terminado!";
+      const t = notificationStrings(resolveLanguage(data.settings.language, () => app.getLocale()));
+      const title = finishedPhase === "focus" ? t.focusDone : t.breakDone;
       const body =
-        nextPhase === "focus"
-          ? "Hora de volver al foco."
-          : nextPhase === "longBreak"
-          ? "Tomate un descanso largo."
-          : "Tomate un descanso corto.";
+        nextPhase === "focus" ? t.backToFocus : nextPhase === "longBreak" ? t.takeLongBreak : t.takeShortBreak;
       new Notification({ title, body, silent: true }).show();
     }
   },

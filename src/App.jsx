@@ -9,12 +9,13 @@ import Settings from "./components/Settings.jsx";
 import useTimer from "./hooks/useTimer.js";
 import useSettings from "./hooks/useSettings.js";
 import useBlockCompleteSound from "./hooks/useBlockCompleteSound.js";
+import { getStrings } from "./i18n/strings.js";
 import "./App.css";
 
-const PHASE_LABEL = {
-  focus: "FOCO",
-  shortBreak: "DESCANSO CORTO",
-  longBreak: "DESCANSO LARGO",
+const PHASE_KEY = {
+  focus: "phaseFocus",
+  shortBreak: "phaseShortBreak",
+  longBreak: "phaseLongBreak",
 };
 
 function formatTime(ms) {
@@ -31,14 +32,17 @@ export default function App() {
 
   useBlockCompleteSound(settings);
 
+  const t = getStrings(settings ? settings.language : "auto");
+
   useEffect(() => {
-    document.title = state ? `${formatTime(state.remainingMs)} · ${PHASE_LABEL[state.phase]}` : "Pixel Pomodoro";
-  }, [state]);
+    document.title = state ? `${formatTime(state.remainingMs)} · ${t[PHASE_KEY[state.phase]]}` : "Pixel Pomodoro";
+  }, [state, t]);
 
   if (!state || !settings) {
     return (
       <div className="app-shell">
         <TitleBar
+          t={t}
           alwaysOnTop={false}
           onToggleAlwaysOnTop={() => {}}
           onMinimize={() => window.pomodoro.window.minimize()}
@@ -46,7 +50,7 @@ export default function App() {
           onToggleSettings={() => {}}
           settingsOpen={false}
         />
-        <div className="app-loading">CARGANDO…</div>
+        <div className="app-loading">{t.loading}</div>
       </div>
     );
   }
@@ -57,6 +61,7 @@ export default function App() {
   return (
     <div className="app-shell">
       <TitleBar
+        t={t}
         alwaysOnTop={settings.alwaysOnTop}
         onToggleAlwaysOnTop={() => update({ alwaysOnTop: !settings.alwaysOnTop })}
         onMinimize={() => window.pomodoro.window.minimize()}
@@ -66,10 +71,10 @@ export default function App() {
       />
 
       {settingsOpen ? (
-        <Settings settings={settings} onUpdate={update} onClose={() => setSettingsOpen(false)} />
+        <Settings t={t} settings={settings} onUpdate={update} onClose={() => setSettingsOpen(false)} />
       ) : (
         <div className="app-main">
-          <div className="phase-label">{PHASE_LABEL[state.phase]}</div>
+          <div className="phase-label">{t[PHASE_KEY[state.phase]]}</div>
 
           <div className="centerpiece">
             {isFocus ? (
@@ -83,9 +88,9 @@ export default function App() {
 
           <ProgressBar progress={progress} phase={state.phase} />
 
-          <PomodoroCounter count={state.todayCount} />
+          <PomodoroCounter t={t} count={state.todayCount} />
 
-          <Controls status={state.status} onStart={start} onPause={pause} onReset={reset} onSkip={skip} />
+          <Controls t={t} status={state.status} onStart={start} onPause={pause} onReset={reset} onSkip={skip} />
         </div>
       )}
     </div>

@@ -2,13 +2,13 @@ import "./PomodoroCounter.css";
 
 const MAX_DOTS = 8;
 
-export default function PomodoroCounter({ count }) {
+export default function PomodoroCounter({ t, count }) {
   const dots = Math.min(count, MAX_DOTS);
   const overflow = count > MAX_DOTS;
 
   return (
     <div className="pomo-counter">
-      <span className="pomo-counter-label">HOY</span>
+      <span className="pomo-counter-label">{t.today}</span>
       <div className="pomo-counter-dots">
         {Array.from({ length: dots }).map((_, i) => (
           <span key={i} className="pomo-dot" />

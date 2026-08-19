@@ -16,6 +16,7 @@ function defaultSettings() {
     volume: 0.7,
     muted: false,
     alwaysOnTop: false,
+    language: "auto",
     windowBounds: { x: null, y: null, width: 320, height: 420 },
   };
 }
@@ -70,6 +71,13 @@ function sanitizeData(parsed) {
             width: typeof value.width === "number" ? value.width : defaults.settings.windowBounds.width,
             height: typeof value.height === "number" ? value.height : defaults.settings.windowBounds.height,
           };
+        }
+        continue;
+      }
+      if (key === "language") {
+        // A plain typeof check would accept any string; keep the allowed set.
+        if (value === "auto" || value === "en" || value === "es") {
+          settings.language = value;
         }
         continue;
       }
