@@ -61,7 +61,8 @@
         }
       ],
       "hardenedRuntime": true,
-      "gatekeeperAssess": false
+      "gatekeeperAssess": false,
+      "identity": null
     },
     "win": {
       "target": [
