@@ -6,7 +6,11 @@ import chimeUrl from "../assets/sounds/chime.wav";
 // current mute/volume settings at the moment a block completes.
 export default function useBlockCompleteSound(settings) {
   const settingsRef = useRef(settings);
-  settingsRef.current = settings;
+  // Keep the latest settings for the listener below. Written after each
+  // commit, not during render (react-hooks/refs).
+  useEffect(() => {
+    settingsRef.current = settings;
+  });
 
   useEffect(() => {
     const audio = new Audio(chimeUrl);
