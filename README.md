@@ -20,7 +20,7 @@ Settings).
 
 ## What do I need to install it?
 
-- A **macOS** or **Windows** computer.
+- A **macOS** (13 Ventura or later) or **Windows** (10 or later) computer.
 
 That's it. No account needed, no Node install, nothing technical.
 
