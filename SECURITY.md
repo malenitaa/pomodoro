@@ -24,7 +24,9 @@ notifications, only posts its own.
 
 - **Network.** There is no network code anywhere in the app. On top of that,
   the production build enforces a Content-Security-Policy with
-  `connect-src 'none'`, all navigation away from the bundled UI is blocked,
+  `connect-src 'none'` (a `<meta>` tag injected into `dist/index.html` at
+  build time and checked by `npm run verify:security`), all navigation away
+  from the bundled UI is blocked,
   every `window.open()` is denied, and `<webview>` attachment is prevented.
   Even if a bug let hostile code into the renderer, it would have no way to
   send anything out.
@@ -62,8 +64,9 @@ This app accepts almost no input, and everything it does accept is validated:
   quietly.
 - `electron/main.js` contains a **relaxed dev-only CSP** so Vite's
   hot-reload works against `localhost:5173`. It is gated on
-  `NODE_ENV === "development"` and never ships in the packaged app — keep it
-  that way.
+  `!app.isPackaged` (not an environment variable) and never applies in the
+  packaged app — keep it that way. The production CSP lives in
+  `vite.config.js`.
 
 ## What is less tested
 

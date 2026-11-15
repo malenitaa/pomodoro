@@ -8,17 +8,16 @@ const { createTimer } = require("./timer");
 const { validateSettingsPatch, validateBoolean } = require("./validators");
 const { resolveLanguage, notificationStrings } = require("./i18n");
 
-const isDev = process.env.NODE_ENV === "development";
+// Dev mode only when running from the source tree (`npm run dev`). An env
+// variable isn't enough: a packaged app launched with NODE_ENV=development
+// would otherwise load http://localhost:5173 with the preload bridge.
+const isDev = !app.isPackaged;
 
 // Windows groups notifications by AppUserModelID; without this they show as
 // coming from "electron.app.Electron" (or not at all in a packaged build).
 if (process.platform === "win32") {
   app.setAppUserModelId("com.malenitaa.pixelpomodoro");
 }
-
-// Electron flags that reduce attack surface / disable features this app
-// never needs (no GPU-accelerated remote content, no experimental APIs).
-app.commandLine.appendSwitch("disable-features", "OutOfBlinkCors");
 
 let mainWindow = null;
 let data = store.loadData();
@@ -163,22 +162,13 @@ function createWindow() {
   });
 }
 
-function applyStrictCsp() {
-  const prodCsp = [
-    "default-src 'self'",
-    "script-src 'self'",
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data:",
-    "connect-src 'none'",
-    "object-src 'none'",
-    "frame-src 'none'",
-  ].join("; ");
-
-  // The packaged app (loaded via loadFile from dist/) always gets the
-  // strict policy above. `npm run dev` loads from Vite's dev server
-  // instead, which needs an inline bootstrap script and a WebSocket back
-  // to itself for hot-module-reload — this relaxed policy only ever
-  // takes effect against that local dev server, never in production.
+// Dev only. The packaged app's strict CSP (connect-src 'none') is a <meta>
+// tag that vite.config.js injects into dist/index.html at build time:
+// loadFile() serves it over file://, where onHeadersReceived never fires.
+// `npm run dev` loads Vite's dev server over http instead, which needs an
+// inline bootstrap script and a WebSocket back to itself for hot reload —
+// this relaxed policy only ever applies to that local dev server.
+function applyDevCsp() {
   const devCsp = [
     "default-src 'self' http://localhost:5173",
     "script-src 'self' 'unsafe-inline' http://localhost:5173",
@@ -189,13 +179,11 @@ function applyStrictCsp() {
     "frame-src 'none'",
   ].join("; ");
 
-  const csp = isDev ? devCsp : prodCsp;
-
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     callback({
       responseHeaders: {
         ...details.responseHeaders,
-        "Content-Security-Policy": [csp],
+        "Content-Security-Policy": [devCsp],
       },
     });
   });
@@ -238,7 +226,7 @@ function registerIpcHandlers() {
 }
 
 app.whenReady().then(() => {
-  applyStrictCsp();
+  if (isDev) applyDevCsp();
   registerIpcHandlers();
   createWindow();
 

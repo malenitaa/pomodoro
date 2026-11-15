@@ -15,6 +15,7 @@
     "build": "npm run build:vite && electron-builder --mac --publish never",
     "build:win": "npm run build:vite && electron-builder --win --publish never",
     "pack": "npm run build:vite && electron-builder --dir",
+    "verify:security": "npm run build:vite && electron scripts/verify-security.mjs",
     "lint": "eslint .",
     "test": "node --test tests/*.test.cjs"
   },

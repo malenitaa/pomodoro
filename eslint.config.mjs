@@ -57,4 +57,12 @@ export default [
       globals: nodeGlobals,
     },
   },
+  {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: nodeGlobals,
+    },
+  },
 ];
