@@ -31,7 +31,7 @@
     "cross-env": "^7.0.3",
     "electron": "^45.3.2",
     "electron-builder": "^26.18.0",
-    "eslint": "^9.17.0",
+    "eslint": "^10.14.0",
     "eslint-plugin-react": "^7.37.3",
     "eslint-plugin-react-hooks": "^7.1.1",
     "pngjs": "^7.0.0",
